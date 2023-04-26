@@ -1,18 +1,21 @@
 {
-  "name": "@uniswap/v2-sdk",
+  "name": "@pollum-io/v1-sdk",
   "license": "MIT",
-  "version": "3.0.1",
-  "description": "🛠 An SDK for building applications on top of Uniswap V2",
+  "version": "0.0.1",
+  "description": "🛠 An SDK for building applications on top of Pegasys V1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/Uniswap/uniswap-v2-sdk.git",
+  "repository": "https://github.com/pegasys-fi/v1-sdk.git",
   "keywords": [
-    "uniswap",
-    "ethereum"
+    "pegasys",
+    "syscoin"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "module": "dist/v2-sdk.esm.js",
   "scripts": {
     "lint": "tsdx lint src test",
@@ -24,14 +27,14 @@
   "dependencies": {
     "@ethersproject/address": "^5.0.0",
     "@ethersproject/solidity": "^5.0.0",
-    "@uniswap/sdk-core": "^3.0.0-alpha.3",
+    "@pollum-io/sdk-core": "0.0.2",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
     "@types/jest": "^24.0.25",
-    "@uniswap/v2-core": "^1.0.1",
+    "@pollum-io/pegasys-protocol": "0.0.17",
     "tsdx": "^0.14.1"
   },
   "engines": {

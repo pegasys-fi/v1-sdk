@@ -1,4 +1,4 @@
-import { BigintIsh, Price, sqrt, Token, CurrencyAmount } from '@uniswap/sdk-core'
+import { BigintIsh, Price, sqrt, Token, CurrencyAmount } from '@pollum-io/sdk-core'
 import invariant from 'tiny-invariant'
 import JSBI from 'jsbi'
 import { pack, keccak256 } from '@ethersproject/solidity'
@@ -39,8 +39,8 @@ export class Pair {
       tokenAmounts[0].currency.chainId,
       Pair.getAddress(tokenAmounts[0].currency, tokenAmounts[1].currency),
       18,
-      'UNI-V2',
-      'Uniswap V2'
+      'PSYS-V1',
+      'Pegasys V1'
     )
     this.tokenAmounts = tokenAmounts as [CurrencyAmount<Token>, CurrencyAmount<Token>]
   }
