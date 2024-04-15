@@ -4,7 +4,7 @@ import JSBI from 'jsbi'
 import { pack, keccak256 } from '@ethersproject/solidity'
 import { getCreate2Address } from '@ethersproject/address'
 
-import { FACTORY_ADDRESS, INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
+import { FACTORY_ADDRESS, FACTORY_ADDRESS_MAP, INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
 
 export const computePairAddress = ({
@@ -28,7 +28,8 @@ export class Pair {
   private readonly tokenAmounts: [CurrencyAmount<Token>, CurrencyAmount<Token>]
 
   public static getAddress(tokenA: Token, tokenB: Token): string {
-    return computePairAddress({ factoryAddress: FACTORY_ADDRESS, tokenA, tokenB })
+    const factoryAddress = FACTORY_ADDRESS_MAP[tokenA.chainId] ?? FACTORY_ADDRESS
+    return computePairAddress({ factoryAddress, tokenA, tokenB })
   }
 
   public constructor(currencyAmountA: CurrencyAmount<Token>, tokenAmountB: CurrencyAmount<Token>) {
