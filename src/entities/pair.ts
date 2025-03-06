@@ -1,9 +1,8 @@
-import { BigintIsh, Price, sqrt, Token, CurrencyAmount } from '@pollum-io/sdk-core'
+import { BigintIsh, Price, sqrt, Token, CurrencyAmount, SupportedChainId, computeZksyncCreate2Address } from '@pollum-io/sdk-core'
 import invariant from 'tiny-invariant'
 import JSBI from 'jsbi'
 import { pack, keccak256 } from '@ethersproject/solidity'
 import { getCreate2Address } from '@ethersproject/address'
-import { utils as zkUtils } from 'zksync-web3'
 
 import { FACTORY_ADDRESS, FACTORY_ADDRESS_MAP, INIT_CODE_HASH_MAP, INIT_CODE_HASH, MINIMUM_LIQUIDITY, FIVE, _997, _1000, ONE, ZERO } from '../constants'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
@@ -19,20 +18,15 @@ export const computePairAddress = ({
 }): string => {
   const [token0, token1] = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA] // does safety checks
   const codehash = INIT_CODE_HASH_MAP[token0.chainId] ?? INIT_CODE_HASH
-  if (token0.chainId == 5701) {
-    return zkUtils.create2Address(
-      factoryAddress,
-      codehash,
-      keccak256(['bytes'], [pack(['address', 'address'], [token0.address, token1.address])]),
-      '0x'
-    )
-  } else {
-    return getCreate2Address(
-      factoryAddress,
-      keccak256(['bytes'], [pack(['address', 'address'], [token0.address, token1.address])]),
-      codehash
-    )
+  const salt = keccak256(['bytes'], [pack(['address', 'address'], [token0.address, token1.address])])
+
+  switch (token0.chainId) {
+    case SupportedChainId.ZKSYS_TANENBAUM:
+      return computeZksyncCreate2Address(factoryAddress, codehash, salt)
+    default:
+      return getCreate2Address(factoryAddress, salt, codehash)
   }
+
 }
 export class Pair {
   public readonly liquidityToken: Token

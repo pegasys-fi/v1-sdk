@@ -1,7 +1,7 @@
 {
   "name": "@pollum-io/v1-sdk",
   "license": "MIT",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "🛠 An SDK for building applications on top of Pegasys V2",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -27,10 +27,9 @@
   "dependencies": {
     "@ethersproject/address": "^5.0.0",
     "@ethersproject/solidity": "^5.0.0",
-    "@pollum-io/sdk-core": "0.0.4",
+    "@pollum-io/sdk-core": "0.0.5",
     "tiny-invariant": "^1.1.0",
-    "tiny-warning": "^1.0.3",
-    "zksync-web3": "^0.17.1"
+    "tiny-warning": "^1.0.3"
   },
   "devDependencies": {
     "@pollum-io/pegasys-protocol": "0.0.17",
