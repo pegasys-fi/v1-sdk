@@ -22,8 +22,9 @@ export const computePairAddress = ({
   if (token0.chainId == 5701) {
     return zkUtils.create2Address(
       factoryAddress,
+      codehash,
       keccak256(['bytes'], [pack(['address', 'address'], [token0.address, token1.address])]),
-      codehash
+      '0x'
     )
   } else {
     return getCreate2Address(
