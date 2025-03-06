@@ -8,10 +8,10 @@ export const FACTORY_ADDRESS_MAP: { [chainId: number]: string } = {
     5701: '0xECee82d05fa8fAB14797FfBcEBe37B6181C4bf91'
 }
 
-export const INIT_CODE_HASH = '0xfe8c050f5785aee7df9239afdcf2fea2b5e2705fd28d6db4827364f1e02ec751'
+export const INIT_CODE_HASH = '0x85c9b07c539b322c33da730d88df8396983c35a411da73d3d6c2278474890833'
 export const INIT_CODE_HASH_MAP: { [chainId: number]: string } = {
     570: INIT_CODE_HASH,
-    57000: '0x85c9b07c539b322c33da730d88df8396983c35a411da73d3d6c2278474890833',
+    57000: INIT_CODE_HASH,
     5701: '0x0100065f12b29bae29aa36044ea9a641888ad99cee9b54d7d52ff1219d9b3a2b'
 }
 

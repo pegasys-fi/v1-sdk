@@ -4,8 +4,8 @@ import { computePairAddress, Pair } from './pair'
 
 describe('computePairAddress', () => {
   it('should correctly compute the pool address', () => {
-    const tokenA = new Token(1, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 18, 'USDC', 'USD Coin')
-    const tokenB = new Token(1, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'DAI Stablecoin')
+    const tokenA = new Token(570, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 18, 'USDC', 'USD Coin')
+    const tokenB = new Token(570, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'DAI Stablecoin')
     const result = computePairAddress({
       factoryAddress: '0x1111111111111111111111111111111111111111',
       tokenA,
@@ -15,8 +15,8 @@ describe('computePairAddress', () => {
     expect(result).toEqual('0x24AA3FB6A666011189924F968C6dd415F6bB411b')
   })
   it('should give same result regardless of token order', () => {
-    const USDC = new Token(1, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 18, 'USDC', 'USD Coin')
-    const DAI = new Token(1, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'DAI Stablecoin')
+    const USDC = new Token(570, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 18, 'USDC', 'USD Coin')
+    const DAI = new Token(570, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'DAI Stablecoin')
     let tokenA = USDC
     let tokenB = DAI
     const resultA = computePairAddress({
@@ -38,20 +38,20 @@ describe('computePairAddress', () => {
 })
 
 describe('Pair', () => {
-  const USDC = new Token(1, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 18, 'USDC', 'USD Coin')
-  const DAI = new Token(1, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'DAI Stablecoin')
+  const USDC = new Token(570, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 18, 'USDC', 'USD Coin')
+  const DAI = new Token(570, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'DAI Stablecoin')
 
   describe('constructor', () => {
     it('cannot be used for tokens on different chains', () => {
       expect(
-        () => new Pair(CurrencyAmount.fromRawAmount(USDC, '100'), CurrencyAmount.fromRawAmount(WETH9[3], '100'))
+        () => new Pair(CurrencyAmount.fromRawAmount(USDC, '100'), CurrencyAmount.fromRawAmount(WETH9[57000], '100'))
       ).toThrow('CHAIN_IDS')
     })
   })
 
   describe('#getAddress', () => {
     it('returns the correct address', () => {
-      expect(Pair.getAddress(USDC, DAI)).toEqual('0x61883b97C6320f76d322C800BaD14B108364f9e5')
+      expect(Pair.getAddress(USDC, DAI)).toEqual('0x5377D832fd8f5220A4Cc810a7fbeA64f4AF9e4fb')
     })
   })
 
@@ -126,7 +126,7 @@ describe('Pair', () => {
     })
 
     it('throws if invalid token', () => {
-      expect(() => pair.priceOf(WETH9[1])).toThrow('TOKEN')
+      expect(() => pair.priceOf(WETH9[570])).toThrow('TOKEN')
     })
   })
 
@@ -143,7 +143,7 @@ describe('Pair', () => {
     it('throws if not in the pair', () => {
       expect(() =>
         new Pair(CurrencyAmount.fromRawAmount(DAI, '101'), CurrencyAmount.fromRawAmount(USDC, '100')).reserveOf(
-          WETH9[1]
+          WETH9[570]
         )
       ).toThrow('TOKEN')
     })
@@ -153,10 +153,10 @@ describe('Pair', () => {
     it('returns the token0 chainId', () => {
       expect(
         new Pair(CurrencyAmount.fromRawAmount(USDC, '100'), CurrencyAmount.fromRawAmount(DAI, '100')).chainId
-      ).toEqual(1)
+      ).toEqual(570)
       expect(
         new Pair(CurrencyAmount.fromRawAmount(DAI, '100'), CurrencyAmount.fromRawAmount(USDC, '100')).chainId
-      ).toEqual(1)
+      ).toEqual(570)
     })
   })
   describe('#involvesToken', () => {
@@ -168,7 +168,7 @@ describe('Pair', () => {
     ).toEqual(true)
     expect(
       new Pair(CurrencyAmount.fromRawAmount(USDC, '100'), CurrencyAmount.fromRawAmount(DAI, '100')).involvesToken(
-        WETH9[1]
+        WETH9[570]
       )
     ).toEqual(false)
   })
